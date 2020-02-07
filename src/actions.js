@@ -14,9 +14,13 @@ export const setSearchField = (text) => ({
 
 export const requestStocks = (stockName) => (dispatch) => {
     dispatch({ type: REQUEST_STOCKS_PENDING});
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&apikey=W4WATVIENKUO5J9V', {
+            method: 'get',
+            })
     .then(response=> response.json())
-    .then(data => dispatch({ type: REQUEST_STOCKS_SUCCESS, payload: data }))
+    .then(data => {
+        console.log(data)
+        dispatch({ type: REQUEST_STOCKS_SUCCESS, payload: data })})
     .catch(error => dispatch({ type: REQUEST_STOCKS_FAILED, payload: error }))
 }
 
