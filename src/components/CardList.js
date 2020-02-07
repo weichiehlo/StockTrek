@@ -2,13 +2,13 @@ import React from 'react'
 import Card from './Card.js'
 
 
-const CardList = function ({robots, onClick, onHover, onExit}){
+const CardList = function ({stocks}){
     
     return(
         <div>
             {
-                robots.map((robot, i) => {
-                    return <Card key= {i} id={robot.id} name={robot.name} email={robot.email}/>
+                stocks.map((stock, i) => {
+                    return <Card key= {i} id={stock.id} name={stock.name} email={stock.email}/>
                     })
             }  
         </div>

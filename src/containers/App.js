@@ -40,7 +40,7 @@ class App extends Component{
                 <SearchBox searchChange={this.props.setSearchField}/>
                 <Scroll>
                     <ErrorBoundry>
-                        <CardList robots = {filteredStocks}/>
+                        <CardList stocks = {filteredStocks}/>
                     </ErrorBoundry>
                     
                 </Scroll>
