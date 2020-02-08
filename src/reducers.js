@@ -1,22 +1,9 @@
 import { 
-    CHANGE_SEARCH_FIELD,
     REQUEST_STOCKS_PENDING,
     REQUEST_STOCKS_SUCCESS,
     REQUEST_STOCKS_FAILED
  } from './constants';
 
-const initialStateSearch = {
-    searchField: ''
-}
-
-export const searchStocks = (state = initialStateSearch, action ={}) => {
-    switch(action.type) {
-        case CHANGE_SEARCH_FIELD:
-            return {...state,searchField: action.payload};
-        default:
-            return state;
-    }
-}
 
 const initialStateStocks = {
     isPending: false,

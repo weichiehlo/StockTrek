@@ -7,12 +7,12 @@ import App from './containers/App.js'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
-import { searchStocks, requestStocks } from './reducers';
+import { requestStocks } from './reducers';
 import thunkMiddleware from 'redux-thunk' ;
 
 const logger = createLogger();
 
-const rootReducer = combineReducers({ searchStocks, requestStocks })
+const rootReducer = combineReducers({ requestStocks })
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 

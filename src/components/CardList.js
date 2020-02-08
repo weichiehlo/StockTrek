@@ -3,7 +3,6 @@ import Card from './Card.js'
 
 
 const CardList = function ({stocks}){
-    
     return(
         <div>
             {
