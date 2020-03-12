@@ -15,7 +15,6 @@ export const requestStocks = (stockName) => (dispatch) => {
             })
     .then(response=> response.json())
     .then(data => {
-        console.log(data)
         dispatch({ type: REQUEST_STOCKS_SUCCESS, payload: data })})
     .catch(error => dispatch({ type: REQUEST_STOCKS_FAILED, payload: error }))
 }

@@ -32,8 +32,17 @@ class App extends Component{
           });
     }
 
-    addSubmit = (event) =>{
+    addSubmit = async(event) =>{
+        event.preventDefault();
         console.log(this.state.addField);
+        await this.props.requestStocks(this.state.stocks[1]);
+        
+    }
+
+    testButton = (event) =>{
+        console.log('-----------')
+        console.log(this.props.stocks)
+        console.log('-----------')
     }
 
 
@@ -57,8 +66,8 @@ class App extends Component{
                     <ErrorBoundry>
                         <CardList stocks = {filteredStocks}/>
                     </ErrorBoundry>
-                    
                 </Scroll>
+                <button type="button" onClick = {this.testButton} >Test Button!</button>
                 
             </div>
     
