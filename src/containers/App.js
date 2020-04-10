@@ -1,3 +1,9 @@
+////TO Do list;
+//Create a object for each stock in state, maybe combine the this.state.stocks (make it has more attribute)
+//Combine test and add button 
+
+
+
 import React, {Component}from 'react'
 import CardList from '../components/CardList.js'
 import AddBox from '../components/AddBox'
@@ -32,13 +38,20 @@ class App extends Component{
           });
     }
 
-    addSubmit = (event) =>{
+    addSubmit = async(event) =>{
         event.preventDefault();
         if(this.state.addField){
             this.setState({stocks:[...this.state.stocks,this.state.addField]})
         }
-        console.log(this.state.stocks)
+        await this.props.requestStocks(this.state.stocks[this.state.stocks.length-1]);
+        
+        
+    }
 
+    testButton = (event) =>{
+        console.log('-----------')
+        console.log(this.props.stocks)
+        console.log('-----------')
     }
 
 
@@ -62,8 +75,8 @@ class App extends Component{
                     <ErrorBoundry>
                         <CardList stocks = {filteredStocks}/>
                     </ErrorBoundry>
-                    
                 </Scroll>
+                <button type="button" onClick = {this.testButton} >Test Button!</button>
                 
             </div>
     
