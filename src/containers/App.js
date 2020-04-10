@@ -15,7 +15,7 @@ class App extends Component{
     constructor(){
         super();
         this.state = {
-            stocks:['FTNT','GILD'],
+            stocks:['FTNT','OXY'],
             addField:''
         }
     }
@@ -33,7 +33,12 @@ class App extends Component{
     }
 
     addSubmit = (event) =>{
-        console.log(this.state.addField);
+        event.preventDefault();
+        if(this.state.addField){
+            this.setState({stocks:[...this.state.stocks,this.state.addField]})
+        }
+        console.log(this.state.stocks)
+
     }
 
 
