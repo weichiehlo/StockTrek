@@ -1,6 +1,8 @@
 ////TO Do list;
 //Create a object for each stock in state, maybe combine the this.state.stocks (make it has more attribute)
 //Combine test and add button 
+// check if the stock is already in the state list, if so skip
+//loop thrrough all the stocks in  the list, maximum 2
 
 
 
