@@ -1,7 +1,7 @@
 import {
     REQUEST_STOCKS_PENDING,
     REQUEST_STOCKS_SUCCESS,
-    REQUEST_STOCKS_FAILED
+    REQUEST_STOCKS_FAILED,
  } from './constants';
 
  import {APIKEY} from './key.js'

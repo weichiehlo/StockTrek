@@ -1,8 +1,8 @@
 ////TO Do list;
-//Create a object for each stock in state, maybe combine the this.state.stocks (make it has more attribute)
 //Combine test and add button 
 // check if the stock is already in the state list, if so skip
-//loop thrrough all the stocks in  the list, maximum 2
+//loop through all the stocks in  the list, maximum 2
+//componentdidmount all the preexisting stock
 
 
 
@@ -24,6 +24,7 @@ class App extends Component{
         super();
         this.state = {
             stocks:['FTNT','OXY'],
+            stockDisplayData:[],
             addField:''
         }
     }
@@ -40,19 +41,40 @@ class App extends Component{
           });
     }
 
-    addSubmit = async(event) =>{
+
+    sleep = (ms) =>{
+            return new Promise(resolve => setTimeout(resolve, ms));
+          }
+
+    addStocktoState = async()=>{
+        let timer = 0;
+        while(timer < 10 && !this.props.stock){
+            timer +=1;
+            await this.sleep(1000)
+        }
+        this.setState({stockDisplayData:[...this.state.stockDisplayData,this.props.stock]})
+        if(timer === 10){
+            console.log("unable to retrieve data")
+        }
+
+    }
+
+    addSubmit = (event) =>{
         event.preventDefault();
         if(this.state.addField){
             this.setState({stocks:[...this.state.stocks,this.state.addField]})
         }
-        await this.props.requestStocks(this.state.stocks[this.state.stocks.length-1]);
+        this.props.requestStocks(this.state.stocks[this.state.stocks.length-1]);
+
+        this.addStocktoState()
         
+       
         
     }
 
     testButton = (event) =>{
         console.log('-----------')
-        console.log(this.props.stocks)
+        console.log(this.state.stockDisplayData)
         console.log('-----------')
     }
 
@@ -92,7 +114,7 @@ class App extends Component{
 
 const mapStateToProps = state =>{
     return {
-        stocks: state.requestStocks.stocks,
+        stock: state.requestStocks.stock,
         isPending: state.requestStocks.isPending,
         error: state.requestStocks.error
 
