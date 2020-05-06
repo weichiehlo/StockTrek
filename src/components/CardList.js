@@ -7,7 +7,7 @@ const CardList = function ({stocks}){
         <div>
             {
                 stocks.map((stock, i) => {
-                    return <Card key= {i} id={stock.id} name={stock.name} email={stock.email}/>
+                    return <Card key= {i} name={stock.symbol} price={stock.price} average={stock.average}/>
                     })
             }  
         </div>

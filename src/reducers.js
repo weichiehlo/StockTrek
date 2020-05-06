@@ -33,16 +33,22 @@ const addStock = (data)=>{
         minutes = "0" + minutes
     } 
 
+    let date = d.getDate().toString();;
+    if(date.length === 1){
+        date = "0"+date
+    }
+
     //If the market is closed then set the time to 4PM else set the closest time, in a 5 minutes interval
     if(marketInactive){
-        time = d.getFullYear()+"-"+month+"-"+d.getDate()+" 16:00:00"
+        time = d.getFullYear()+"-"+month+"-"+date+" 16:00:00"
     }else{
-        time = d.getFullYear()+"-"+month+"-"+d.getDate()+" "+d.getHours()+":"+minutes+":00"
+        time = d.getFullYear()+"-"+month+"-"+date+" "+d.getHours()+":"+minutes+":00"
     }
+
     let getlatestAvg = ()=>{
         let high = data["Time Series (5min)"][time]['2. high']
         let low = data["Time Series (5min)"][time]['3. low']
-        return (parseFloat(high)+parseFloat(low))/2
+        return ((parseFloat(high)+parseFloat(low))/2).toFixed(2)
     }
     
     let getAllAvg = ()=>{
@@ -54,9 +60,9 @@ const addStock = (data)=>{
             return a + (parseFloat(high)+parseFloat(low))/2
         }
         ,0)
-        return total/intervals.length
+        return (total/intervals.length).toFixed(2)
     }
-    return {"Symbol":data["Meta Data"]["2. Symbol"],"price":getlatestAvg(),"average":getAllAvg()}
+    return {"symbol":data["Meta Data"]["2. Symbol"],"price":getlatestAvg(),"average":getAllAvg()}
 }
 
 export const requestStocks = (state = initialStateStocks, action = {}) => {

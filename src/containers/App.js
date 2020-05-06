@@ -1,8 +1,5 @@
 ////TO Do list;
-//Combine test and add button 
-// check if the stock is already in the state list, if so skip
-//loop through all the stocks in  the list, maximum 2
-//componentdidmount all the preexisting stock
+// add min and max to the stock
 
 
 
@@ -23,7 +20,7 @@ class App extends Component{
     constructor(){
         super();
         this.state = {
-            stocks:['FTNT','OXY'],
+            stocks:[],
             stockDisplayData:[],
             addField:''
         }
@@ -46,12 +43,19 @@ class App extends Component{
             return new Promise(resolve => setTimeout(resolve, ms));
           }
 
-    addStocktoState = async()=>{
+    addStocktoState = async(stock)=>{
         let timer = 0;
         while(timer < 10 && !this.props.stock){
             timer +=1;
             await this.sleep(1000)
         }
+
+        timer = 0;
+        while(timer < 10 && this.props.stock.symbol !== stock){
+            timer +=1;
+            await this.sleep(1000)
+        }
+
         this.setState({stockDisplayData:[...this.state.stockDisplayData,this.props.stock]})
         if(timer === 10){
             console.log("unable to retrieve data")
@@ -62,11 +66,18 @@ class App extends Component{
     addSubmit = (event) =>{
         event.preventDefault();
         if(this.state.addField){
-            this.setState({stocks:[...this.state.stocks,this.state.addField]})
-        }
-        this.props.requestStocks(this.state.stocks[this.state.stocks.length-1]);
+            let currentStock = this.state.addField.toUpperCase();
+            if(!this.state.stocks.includes(currentStock)){
+                this.props.requestStocks(currentStock);
+                this.setState({stocks:[...this.state.stocks,currentStock]})
+                this.addStocktoState(currentStock)
+                
 
-        this.addStocktoState()
+            }
+            
+        }
+
+ 
         
        
         
@@ -75,20 +86,13 @@ class App extends Component{
     testButton = (event) =>{
         console.log('-----------')
         console.log(this.state.stockDisplayData)
+        console.log(this.state.stocks)
         console.log('-----------')
     }
 
 
     render(){
-        const { searchField, stocks, isPending } = this.props;
-        
-        let filteredStocks
-        Array.isArray(stocks) ?
-            filteredStocks = stocks.filter((stock) => {
-                return (stock.name.toLowerCase().includes(searchField.toLowerCase()))
-            })
-            :
-            filteredStocks = []
+        const { isPending } = this.props;
         return isPending?
         <h1 className='f1'>LOADING</h1>:
         (
@@ -97,7 +101,7 @@ class App extends Component{
                 <AddBox addChange ={this.addChange} addSubmit={this.addSubmit}/>
                 <Scroll>
                     <ErrorBoundry>
-                        <CardList stocks = {filteredStocks}/>
+                        <CardList stocks = {this.state.stockDisplayData}/>
                     </ErrorBoundry>
                 </Scroll>
                 <button type="button" onClick = {this.testButton} >Test Button!</button>
