@@ -7,7 +7,7 @@ const CardList = function ({stocks}){
         <div>
             {
                 stocks.map((stock, i) => {
-                    return <Card key= {i} name={stock.symbol} price={stock.price} average={stock.average}/>
+                    return <Card key= {i} id ={i} name={stock.symbol} price={stock.price} average={stock.average} max={stock.max} min={stock.min}/>
                     })
             }  
         </div>

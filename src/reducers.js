@@ -62,7 +62,37 @@ const addStock = (data)=>{
         ,0)
         return (total/intervals.length).toFixed(2)
     }
-    return {"symbol":data["Meta Data"]["2. Symbol"],"price":getlatestAvg(),"average":getAllAvg()}
+
+    let getMin = ()=>{
+        let intervals = Object.keys(data["Time Series (5min)"]);
+        let min;
+        for(let interval of intervals){
+            if(min === undefined){
+                min = data["Time Series (5min)"][interval]['3. low']
+            }else if(data["Time Series (5min)"][interval]['3. low']<min){
+                min = data["Time Series (5min)"][interval]['3. low']
+            }
+            
+        }
+        return parseFloat(min).toFixed(2)
+       
+    }
+
+    let getMax = ()=>{
+        let intervals = Object.keys(data["Time Series (5min)"]);
+        let max;
+        for(let interval of intervals){
+            if(max === undefined){
+                max = data["Time Series (5min)"][interval]['2. high']
+            }else if(data["Time Series (5min)"][interval]['2. high']>max){
+                max = data["Time Series (5min)"][interval]['2. high']
+            }
+        }
+        return parseFloat(max).toFixed(2)
+       
+    }
+
+    return {"symbol":data["Meta Data"]["2. Symbol"],"price":getlatestAvg(),"average":getAllAvg(), "max":getMax(), "min":getMin()}
 }
 
 export const requestStocks = (state = initialStateStocks, action = {}) => {
