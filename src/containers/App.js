@@ -6,6 +6,7 @@
 import React, {Component}from 'react'
 import CardList from '../components/CardList.js'
 import AddBox from '../components/AddBox'
+import Time from '../components/Time'
 import './App.css'
 import Scroll from '../components/Scroll'
 import ErrorBoundry from '../components/ErrorBoundry'
@@ -105,6 +106,7 @@ class App extends Component{
                     </ErrorBoundry>
                 </Scroll>
                 <button type="button" onClick = {this.testButton} >Test Button!</button>
+                <Time />
                 
             </div>
     
