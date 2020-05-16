@@ -1,12 +1,10 @@
-import React, {Component}from 'react'
+import React, { useState, useEffect }from 'react'
 
-class Time extends Component{
-    constructor(){
-        super()
-        this.state  = {time:this.formatTime()}
-    }
+const Time = props => {
+    
+    const [time, setTime] = useState("00:00:00")
 
-    formatTime = ()=>{
+    const formatTime = ()=>{
         let d = new Date();
     
         //add zero padding
@@ -33,18 +31,20 @@ class Time extends Component{
         return d.getFullYear()+"-"+month+"-"+date+" "+d.getHours()+":"+minutes+":"+second
     }
 
-    render(){
-        return (
-            <div className='f1 light-blue grow '>{this.state.time}</div>
-        );
-    }
 
-    componentDidMount() {
-        this.interval = setInterval(()=>this.setState({time:this.formatTime()}),1000)
-    }
-    componentWillUnmount() {
-        clearInterval(this.interval);
-      }
+
+    useEffect(() => {
+        let interval = setInterval(()=>setTime(formatTime()),1000)
+        return () =>{
+            clearInterval(interval)
+        }
+    }, []);
+
+
+   
+    return (
+        <div className='f1 light-blue grow '>{time}</div>
+    );
 
 }
 
